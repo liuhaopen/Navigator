@@ -11471,6 +11471,7 @@ int main (int argc, char * argv[]) {
 #endif
 
     int result = Catch::Session().run( argc, argv );
+	system("pause");
     return ( result < 0xff ? result : 0xff );
 }
 

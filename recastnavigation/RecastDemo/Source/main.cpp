@@ -40,6 +40,7 @@
 #include "TestCase.h"
 #include "Filelist.h"
 #include "Sample_SoloMesh.h"
+#include "Sample_NavMesh.h"
 #include "Sample_TileMesh.h"
 #include "Sample_TempObstacles.h"
 #include "Sample_Debug.h"
@@ -58,11 +59,13 @@ struct SampleItem
 	const string name;
 };
 Sample* createSolo() { return new Sample_SoloMesh(); }
+Sample* createUnity() { return new Sample_NavMesh(); }
 Sample* createTile() { return new Sample_TileMesh(); }
 Sample* createTempObstacle() { return new Sample_TempObstacles(); }
 Sample* createDebug() { return new Sample_Debug(); }
 static SampleItem g_samples[] =
 {
+	{ createUnity, "Unity Mesh" },
 	{ createSolo, "Solo Mesh" },
 	{ createTile, "Tile Mesh" },
 	{ createTempObstacle, "Temp Obstacles" },
