@@ -608,24 +608,22 @@ bool Sample_NavMesh::handleBuild()
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Out of memory 'pmesh'.");
 		return false;
 	}
-	NavMeshLoader::FullPolyDataFromJson("navmesh.json", *m_pmesh);
+	//NavMeshLoader::FullPolyDataFromJson("navmesh_plane.json", *m_pmesh);
+	NavMeshLoader::FullPolyDataFromJson("navmesh_ti.json", *m_pmesh);
 	/*if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh))
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Could not triangulate contours.");
 		return false;
 	}*/
-
 	//
 	// Step 7. Create detail mesh which allows to access approximate height on each polygon.
 	//
-
 	/*m_dmesh = rcAllocPolyMeshDetail();
 	if (!m_dmesh)
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Out of memory 'pmdtl'.");
 		return false;
 	}
-
 	if (!rcBuildPolyMeshDetail(m_ctx, *m_pmesh, *m_chf, m_cfg.detailSampleDist, m_cfg.detailSampleMaxError, *m_dmesh))
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Could not build detail mesh.");

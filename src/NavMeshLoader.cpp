@@ -16,17 +16,36 @@ dtNavMesh * NavMeshLoader::LoadFromJson(const char * path)
 {
 	Document doc;
 	ParseJson(path, doc);
-	bool has_v = doc.HasMember("v");
-	bool has_p = doc.HasMember("p");
-	if (!has_v || !has_p)
-	{
-		return NULL;
-	}
-	rapidjson::Value& vertex_value = doc["v"];
-	if (vertex_value.IsArray())
-	{
+	
+	// Init build configuration from GUI
+	//memset(&m_cfg, 0, sizeof(m_cfg));
+	//m_cfg.cs = m_cellSize;
+	//m_cfg.ch = m_cellHeight;
+	//m_cfg.walkableSlopeAngle = m_agentMaxSlope;
+	//m_cfg.walkableHeight = (int)ceilf(m_agentHeight / m_cfg.ch);
+	//m_cfg.walkableClimb = (int)floorf(m_agentMaxClimb / m_cfg.ch);
+	//m_cfg.walkableRadius = (int)ceilf(m_agentRadius / m_cfg.cs);
+	//m_cfg.maxEdgeLen = (int)(m_edgeMaxLen / m_cellSize);
+	//m_cfg.maxSimplificationError = m_edgeMaxError;
+	//m_cfg.minRegionArea = (int)rcSqr(m_regionMinSize);		// Note: area = size*size
+	//m_cfg.mergeRegionArea = (int)rcSqr(m_regionMergeSize);	// Note: area = size*size
+	//m_cfg.maxVertsPerPoly = (int)m_vertsPerPoly;
+	//m_cfg.detailSampleDist = m_detailSampleDist < 0.9f ? 0 : m_cellSize * m_detailSampleDist;
+	//m_cfg.detailSampleMaxError = m_cellHeight * m_detailSampleMaxError;
 
-	}
+	//// Set the area where the navigation will be build.
+	//// Here the bounds of the input mesh are used, but the
+	//// area could be specified by an user defined box, etc.
+	//rcVcopy(m_cfg.bmin, bmin);
+	//rcVcopy(m_cfg.bmax, bmax);
+	//rcCalcGridSize(m_cfg.bmin, m_cfg.bmax, m_cfg.cs, &m_cfg.width, &m_cfg.height);
+	//m_pmesh = rcAllocPolyMesh();
+	//if (!m_pmesh)
+	//{
+	//	m_ctx->log(RC_LOG_ERROR, "buildNavigation: Out of memory 'pmesh'.");
+	//	return false;
+	//}
+	//NavMeshLoader::FullPolyDataFromJson("navmesh_plane.json", *m_pmesh);
 	return NULL;
 }
 
