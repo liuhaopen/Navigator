@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Win64|Win32">
+      <Configuration>Debug Win64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Win64|x64">
+      <Configuration>Debug Win64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release Win64|Win32">
+      <Configuration>Release Win64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release Win64|x64">
+      <Configuration>Release Win64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0CAA0A13-F861-4C60-6169-25BC4D40E750}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RecastDemo</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\Bin\</OutDir>
+    <IntDir>obj\Win32\Debug\RecastDemo\</IntDir>
+    <TargetName>RecastDemo</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\Bin\</OutDir>
+    <IntDir>obj\Win64\Debug\RecastDemo\</IntDir>
+    <TargetName>RecastDemo</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Bin\</OutDir>
+    <IntDir>obj\Win32\Release\RecastDemo\</IntDir>
+    <TargetName>RecastDemo</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Bin\</OutDir>
+    <IntDir>obj\Win64\Release\RecastDemo\</IntDir>
+    <TargetName>RecastDemo</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <PreprocessorDefinitions>DEBUG;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Include;..\..\Contrib;..\..\Contrib\fastlz;..\..\..\DebugUtils\Include;..\..\..\Detour\Include;..\..\..\DetourCrowd\Include;..\..\..\DetourTileCache\Include;..\..\..\Recast\Include;..\..\Contrib\SDL\include;..\..\..\..\src;..\..\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/W3 /wd4351 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Contrib\SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\..\Contrib\SDL\lib\x86\SDL2.dll"\ (xcopy /Q /E /Y /I "..\..\Contrib\SDL\lib\x86\SDL2.dll" "..\..\Bin" &gt; nul) ELSE (xcopy /Q /Y /I "..\..\Contrib\SDL\lib\x86\SDL2.dll" "..\..\Bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>DEBUG;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Include;..\..\Contrib;..\..\Contrib\fastlz;..\..\..\DebugUtils\Include;..\..\..\Detour\Include;..\..\..\DetourCrowd\Include;..\..\..\DetourTileCache\Include;..\..\..\Recast\Include;..\..\Contrib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/W3 /wd4351 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Contrib\SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\..\Contrib\SDL\lib\x64\SDL2.dll"\ (xcopy /Q /E /Y /I "..\..\Contrib\SDL\lib\x64\SDL2.dll" "..\..\Bin" &gt; nul) ELSE (xcopy /Q /Y /I "..\..\Contrib\SDL\lib\x64\SDL2.dll" "..\..\Bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Include;..\..\Contrib;..\..\Contrib\fastlz;..\..\..\DebugUtils\Include;..\..\..\Detour\Include;..\..\..\DetourCrowd\Include;..\..\..\DetourTileCache\Include;..\..\..\Recast\Include;..\..\Contrib\SDL\include;..\..\..\..\src;..\..\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/W3 /wd4351 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Contrib\SDL\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\..\Contrib\SDL\lib\x86\SDL2.dll"\ (xcopy /Q /E /Y /I "..\..\Contrib\SDL\lib\x86\SDL2.dll" "..\..\Bin" &gt; nul) ELSE (xcopy /Q /Y /I "..\..\Contrib\SDL\lib\x86\SDL2.dll" "..\..\Bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Include;..\..\Contrib;..\..\Contrib\fastlz;..\..\..\DebugUtils\Include;..\..\..\Detour\Include;..\..\..\DetourCrowd\Include;..\..\..\DetourTileCache\Include;..\..\..\Recast\Include;..\..\Contrib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/W3 /wd4351 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Contrib\SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\..\Contrib\SDL\lib\x64\SDL2.dll"\ (xcopy /Q /E /Y /I "..\..\Contrib\SDL\lib\x64\SDL2.dll" "..\..\Bin" &gt; nul) ELSE (xcopy /Q /Y /I "..\..\Contrib\SDL\lib\x64\SDL2.dll" "..\..\Bin" &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\Navigator.h" />
+    <ClInclude Include="..\..\Contrib\fastlz\fastlz.h" />
+    <ClInclude Include="..\..\Include\ChunkyTriMesh.h" />
+    <ClInclude Include="..\..\Include\ConvexVolumeTool.h" />
+    <ClInclude Include="..\..\Include\CrowdTool.h" />
+    <ClInclude Include="..\..\Include\Filelist.h" />
+    <ClInclude Include="..\..\Include\InputGeom.h" />
+    <ClInclude Include="..\..\Include\MeshLoaderObj.h" />
+    <ClInclude Include="..\..\Include\NavMeshPruneTool.h" />
+    <ClInclude Include="..\..\Include\NavMeshTesterTool.h" />
+    <ClInclude Include="..\..\Include\OffMeshConnectionTool.h" />
+    <ClInclude Include="..\..\Include\PerfTimer.h" />
+    <ClInclude Include="..\..\Include\Sample.h" />
+    <ClInclude Include="..\..\Include\SampleInterfaces.h" />
+    <ClInclude Include="..\..\Include\Sample_Debug.h" />
+    <ClInclude Include="..\..\Include\Sample_NavMesh.h" />
+    <ClInclude Include="..\..\Include\Sample_SoloMesh.h" />
+    <ClInclude Include="..\..\Include\Sample_TempObstacles.h" />
+    <ClInclude Include="..\..\Include\Sample_TileMesh.h" />
+    <ClInclude Include="..\..\Include\TestCase.h" />
+    <ClInclude Include="..\..\Include\ValueHistory.h" />
+    <ClInclude Include="..\..\Include\imgui.h" />
+    <ClInclude Include="..\..\Include\imguiRenderGL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\Navigator.cpp" />
+    <ClCompile Include="..\..\Contrib\fastlz\fastlz.c" />
+    <ClCompile Include="..\..\Source\ChunkyTriMesh.cpp" />
+    <ClCompile Include="..\..\Source\ConvexVolumeTool.cpp" />
+    <ClCompile Include="..\..\Source\CrowdTool.cpp" />
+    <ClCompile Include="..\..\Source\Filelist.cpp" />
+    <ClCompile Include="..\..\Source\InputGeom.cpp" />
+    <ClCompile Include="..\..\Source\MeshLoaderObj.cpp" />
+    <ClCompile Include="..\..\Source\NavMeshPruneTool.cpp" />
+    <ClCompile Include="..\..\Source\NavMeshTesterTool.cpp" />
+    <ClCompile Include="..\..\Source\OffMeshConnectionTool.cpp" />
+    <ClCompile Include="..\..\Source\PerfTimer.cpp" />
+    <ClCompile Include="..\..\Source\Sample.cpp" />
+    <ClCompile Include="..\..\Source\SampleInterfaces.cpp" />
+    <ClCompile Include="..\..\Source\Sample_Debug.cpp" />
+    <ClCompile Include="..\..\Source\Sample_NavMesh.cpp" />
+    <ClCompile Include="..\..\Source\Sample_SoloMesh.cpp" />
+    <ClCompile Include="..\..\Source\Sample_TempObstacles.cpp" />
+    <ClCompile Include="..\..\Source\Sample_TileMesh.cpp" />
+    <ClCompile Include="..\..\Source\TestCase.cpp" />
+    <ClCompile Include="..\..\Source\ValueHistory.cpp" />
+    <ClCompile Include="..\..\Source\imgui.cpp" />
+    <ClCompile Include="..\..\Source\imguiRenderGL.cpp" />
+    <ClCompile Include="..\..\Source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="DebugUtils.vcxproj">
+      <Project>{5D28ADD3-49E0-EE20-B2E7-C77C9EBE8911}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Detour.vcxproj">
+      <Project>{18FEE2AD-04A0-0D84-ED5A-21D8D99B94D4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="DetourCrowd.vcxproj">
+      <Project>{F7616A66-6317-E35B-EC0B-DD3258C0D95F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="DetourTileCache.vcxproj">
+      <Project>{1AB411D3-863F-7F97-8F50-028CFB5ADB97}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Recast.vcxproj">
+      <Project>{A7A881CE-934A-ACA4-7C05-C0F8684633F5}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

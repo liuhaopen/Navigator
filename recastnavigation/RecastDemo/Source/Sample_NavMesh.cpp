@@ -20,7 +20,7 @@
 #include "ConvexVolumeTool.h"
 #include "CrowdTool.h"
 #include "Recast.h"
-#include "NavMeshLoader.h"
+#include "Navigator.h"
 
 #ifdef WIN32
 #	define snprintf _snprintf
@@ -609,7 +609,7 @@ bool Sample_NavMesh::handleBuild()
 		return false;
 	}
 	//NavMeshLoader::FullPolyDataFromJson("navmesh_plane.json", *m_pmesh);
-	NavMeshLoader::FullPolyDataFromJson("navmesh_ti.json", *m_pmesh);
+	Navigator::FullPolyDataFromJson("navmesh_ti.json", *m_pmesh);
 	/*if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh))
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Could not triangulate contours.");

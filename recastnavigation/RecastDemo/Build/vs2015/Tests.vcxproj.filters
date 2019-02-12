@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Detour">
+      <UniqueIdentifier>{18FEE2AD-04A0-0D84-ED5A-21D8D99B94D4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Recast">
+      <UniqueIdentifier>{A7A881CE-934A-ACA4-7C05-C0F8684633F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Navigator">
+      <UniqueIdentifier>{792afc27-9043-434d-8660-464face57481}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Tests\catch.hpp" />
+    <ClInclude Include="..\..\..\..\src\Navigator.h">
+      <Filter>Navigator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Tests\Detour\Tests_Detour.cpp">
+      <Filter>Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Tests\Recast\Tests_Recast.cpp">
+      <Filter>Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Tests\main.cpp" />
+    <ClCompile Include="..\..\..\..\src\Navigator.cpp">
+      <Filter>Navigator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Tests_Navigator.cpp">
+      <Filter>Navigator</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
