@@ -608,8 +608,33 @@ bool Sample_NavMesh::handleBuild()
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Out of memory 'pmesh'.");
 		return false;
 	}
-	//NavMeshLoader::FullPolyDataFromJson("navmesh_plane.json", *m_pmesh);
-	Navigator::FullPolyDataFromJson("navmesh_ti.json", *m_pmesh);
+	
+	if (1)
+	{
+		FILE *fp = fopen("navmesh_ti.json", "r");
+		if (!fp)
+			return 0;
+		fseek(fp, 0L, SEEK_END);
+		int fileSize = ftell(fp);
+		char* data = (char*)dtAlloc(fileSize, DT_ALLOC_PERM);
+		if (!data)
+			return 0;
+		memset(data, 0, fileSize);
+		fseek(fp, 0L, SEEK_SET);
+		int is_read_ok = fread(data, fileSize, 1, fp);
+		if (is_read_ok != 1)
+		{
+			dtFree(data);
+			fclose(fp);
+			return 0;
+		}
+		Navigator::ConvertJsonToNavBinFile(data, "I:\\Lua\\recastnavigation_for_lua\\recastnavigation\\RecastDemo\\Bin\\unity_navmesh.bin");
+	}
+	else
+	{
+		//NavMeshLoader::FullPolyDataFromJson("navmesh_plane.json", *m_pmesh);
+		Navigator::FullPolyDataFromJson("navmesh_ti.json", *m_pmesh);
+	}
 	/*if (!rcBuildPolyMesh(m_ctx, *m_cset, m_cfg.maxVertsPerPoly, *m_pmesh))
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Could not triangulate contours.");

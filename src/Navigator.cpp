@@ -80,7 +80,7 @@ int Navigator::ConvertJsonToNavBinFile(const char * jsonContent, const char * sa
 		return 0;
 	}
 	FullPolyDataFromJsonObj(doc, *m_pmesh);
-	const int nvp = doc["nvp"].GetInt();
+	int nvp = doc["nvp"].GetInt();
 	dtNavMesh* navMesh = NULL;
 	if (nvp <= DT_VERTS_PER_POLYGON)
 	{
@@ -99,6 +99,9 @@ int Navigator::ConvertJsonToNavBinFile(const char * jsonContent, const char * sa
 		params.walkableHeight = doc["agentHeight"].GetFloat();
 		params.walkableRadius = doc["agentRadius"].GetFloat();
 		params.walkableClimb = doc["agentMaxClimb"].GetFloat();
+		//params.walkableHeight = 2;
+		//params.walkableRadius = 0.6;
+		//params.walkableClimb = 0.9;
 		rcVcopy(params.bmin, m_pmesh->bmin);
 		rcVcopy(params.bmax, m_pmesh->bmax);
 		params.cs = m_pmesh->cs;
@@ -277,9 +280,9 @@ int Navigator::FullPolyDataFromJsonObj(rapidjson::Document & doc, rcPolyMesh & m
 {
 	mesh.maxEdgeError = 1.3;
 	mesh.borderSize = 0;
-	const int nvp = doc["nvp"].GetInt();
-	const int cs = doc["cs"].GetInt();
-	const int ch = doc["ch"].GetInt();
+	int nvp = doc["nvp"].GetInt();
+	float cs = doc["cs"].GetFloat();
+	float ch = doc["ch"].GetFloat();
 	mesh.nvp = nvp;
 	mesh.cs = cs;
 	mesh.ch = ch;

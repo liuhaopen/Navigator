@@ -3,16 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using System;
+using UnityEngine.AI;
+using System.IO;
+using System.Runtime.Serialization;
 
+namespace Extend
+{
 public static class NavMeshExporter
 {
+    // [System.Runtime.InteropServices.DllImport("NavigatorForUnity", CallingConvention = System.Runtime.InteropServices.CallingConvention.Winapi)]    
+    [System.Runtime.InteropServices.DllImport("NavigatorForUnity")]    
+    private static extern int ConvertJsonToNavBinFile(string jsonContent, string savePath);   
+
     private static int MaxVertexPerPoly = 6;
     private const ushort NullIndex = 0xffff;
     
     private const float xzCellSize = 0.30f;      //these two gotten from recast demo
     private const float yCellSize = 0.20f;
 
-    [UnityEditor.MenuItem("NavMeshExporter/ExportToJson")]
+    [UnityEditor.MenuItem("NavMeshExporter/ExportToNavBin")]
+    static void ExportToNavBin()
+    {
+        string outstring = GenNavMesh("json");
+        string select_path = EditorUtility.SaveFilePanel("Export Navmesh As NavBin File", "", "navmesh", "bin");
+        int resultCode = ConvertJsonToNavBinFile(outstring, select_path);
+        if (resultCode==1)
+            EditorUtility.DisplayDialog("Tip", "Export Navmesh As NavBin File Succeed!", "ok");
+        else
+            EditorUtility.DisplayDialog("Error", "Export Navmesh As NavBin File Faild!", "close");
+    }
+
+    [UnityEditor.MenuItem("NavMeshExporter/Debug/ExportToJson")]
     static void ExportToJson()
     {
         string outstring = GenNavMesh("json");
@@ -21,7 +42,7 @@ public static class NavMeshExporter
         EditorUtility.DisplayDialog("Tip", "Export Navmesh As Json File Succeed!", "ok");
     }
 
-    [UnityEditor.MenuItem("NavMeshExporter/ExportToObj")]
+    [UnityEditor.MenuItem("NavMeshExporter/Debug/ExportToObj")]
     static void ExportToObj()
     {
         string outstring = GenNavMesh("obj");
@@ -183,16 +204,6 @@ public static class NavMeshExporter
         // }
         polys.Add(polyVert);
     }
-    
-    static void ShowDebugMesh(List<Vector3> vertexes, List<List<int>> polys)
-    {
-        // var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        // var mf = obj.GetComponent<MeshFilter>();
-        // Mesh m = new Mesh();
-        // m.vertices = navtri.vertices;
-        // m.triangles = navtri.indices;
-        // mf.mesh = m;
-    }
 
     //TODO: 导出area字段
     static string GenNavMesh(string style)
@@ -281,7 +292,6 @@ public static class NavMeshExporter
                 {
                     if (polys[i][j]!=NullIndex)
                         polys[i][j] = indexmap[polys[i][j]];
-                    // Debug.Log("i : "+i+" j:"+j+" value:"+polys[i][j]);
                 }
                 for (int ii=polys[i].Count; ii<MaxVertexPerPoly; ii++)
                     polys[i].Add(NullIndex);
@@ -306,18 +316,26 @@ public static class NavMeshExporter
             outnav += "\"nvp\":"+MaxVertexPerPoly+",\n";
             outnav += "\"cs\":"+xzCellSize+",\n";
             outnav += "\"ch\":"+yCellSize+",\n";
+            NavMeshBuildSettings settings = NavMesh.GetSettingsByIndex( 0 );
+            outnav += "\"agentHeight\":"+settings.agentHeight+",\n";
+            outnav += "\"agentRadius\":"+settings.agentRadius+",\n";
+            outnav += "\"agentMaxClimb\":"+settings.agentClimb+",\n";
             outnav += "\"bmin\":["+boundsMin[0]+", "+boundsMin[1]+", "+boundsMin[2]+"],\n";
             outnav += "\"bmax\":["+boundsMax[0]+", "+boundsMax[1]+", "+boundsMax[2]+"],\n";
             outnav += "\"v\":[\n";
+            // List<List<uint>> vertexes = new List<List<uint>>();
             for (int i = 0; i < repos.Count; i++)
             {
+                // List<uint> vertex = new List<uint>();
+                // vertex.Add((uint)repos[i].x);
+                // vertex.Add((uint)repos[i].y);
+                // vertex.Add((uint)repos[i].z);
+                // vertexes.Add(vertex);
                 if (i > 0)
                     outnav += ",\n";
-
                 outnav += "[" + (repos[i].x) + "," + repos[i].y + "," + repos[i].z + "]";
             }
             outnav += "\n],\n\"p\":[\n";
-            // Debug.Log("outnav : "+outnav);
             for (int i = 0; i < polys.Count; i++)
             {
                 // string outs = indexmap[polys[i][0]].ToString();
@@ -333,14 +351,12 @@ public static class NavMeshExporter
                 {
                     outs += "," + polys[i][j];
                 }
-
                 if (i > 0)
                     outnav += ",\n";
-
                 outnav += "[" + outs + "]";
             }
             outnav += "\n]}";
-            ShowDebugMesh(repos, polys);
+            Debug.Log("outnav : "+outnav);
         }
         else if (style == "obj")
         {
@@ -365,4 +381,6 @@ public static class NavMeshExporter
         }
         return outnav;
     }
+}
+
 }
