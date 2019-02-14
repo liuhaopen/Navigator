@@ -20,13 +20,17 @@ public static class NavMeshExporter
     
     private const float xzCellSize = 0.30f;      //these two gotten from recast demo
     private const float yCellSize = 0.20f;
+    private static string ProgressBarName = "前方正在施工...";
 
     [UnityEditor.MenuItem("NavMeshExporter/ExportToNavBin")]
     static void ExportToNavBin()
     {
+        ProgressBarName = "ExportToNavBin";
         string outstring = GenNavMesh("json");
         string select_path = EditorUtility.SaveFilePanel("Export Navmesh As NavBin File", "", "navmesh", "bin");
+        EditorUtility.DisplayProgressBar(ProgressBarName, "正在转化为tile cache", 0.85f);
         int resultCode = ConvertJsonToNavBinFile(outstring, select_path);
+        EditorUtility.ClearProgressBar();
         if (resultCode==1)
             EditorUtility.DisplayDialog("Tip", "Export Navmesh As NavBin File Succeed!", "ok");
         else
@@ -36,18 +40,24 @@ public static class NavMeshExporter
     [UnityEditor.MenuItem("NavMeshExporter/Debug/ExportToJson")]
     static void ExportToJson()
     {
+        ProgressBarName = "ExportToJson";
         string outstring = GenNavMesh("json");
         string select_path = EditorUtility.SaveFilePanel("Export Navmesh As Json File", "", "navmesh", "json");
+        EditorUtility.DisplayProgressBar(ProgressBarName, "开始写入json文件", 0.95f);
         System.IO.File.WriteAllText(select_path, outstring);
+        EditorUtility.ClearProgressBar();
         EditorUtility.DisplayDialog("Tip", "Export Navmesh As Json File Succeed!", "ok");
     }
 
     [UnityEditor.MenuItem("NavMeshExporter/Debug/ExportToObj")]
     static void ExportToObj()
     {
+        ProgressBarName = "ExportToObj";
         string outstring = GenNavMesh("obj");
         string select_path = EditorUtility.SaveFilePanel("Export Navmesh As Obj File", "", "navmesh", "obj");
+        EditorUtility.DisplayProgressBar(ProgressBarName, "开始写入obj文件", 0.95f);
         System.IO.File.WriteAllText(select_path, outstring);
+        EditorUtility.ClearProgressBar();
         EditorUtility.DisplayDialog("Tip", "Export Navmesh As Obj File Succeed!", "ok");
     }
 
@@ -151,10 +161,12 @@ public static class NavMeshExporter
         return num;
     }
 
-    static void GenNeighbor(List<List<int>> polys, ref List<List<int> > neighbor)
+    static void GenNeighbor(List<List<int>> polys, ref List<List<int> > neighbor, float progress)
     {
         for (int i=0; i < polys.Count; i++)
         {
+            float detailPro = progress+0.1f*(i+1)/polys.Count;
+            EditorUtility.DisplayProgressBar(ProgressBarName, "获取邻近多边形数据("+(i+1)+"/"+polys.Count+")", detailPro);
             // Debug.Log("polys.Count : "+polys.Count+ " I:"+i);
             neighbor.Add(new List<int>());
             for (int j=0; j<MaxVertexPerPoly; j++)
@@ -208,6 +220,9 @@ public static class NavMeshExporter
     //TODO: 导出area字段
     static string GenNavMesh(string style)
     {
+        float progress = 0;
+        float detailPro = 0;
+        EditorUtility.DisplayProgressBar(ProgressBarName, "获取NavMesh三角形数据", progress);
         // return GenNavMeshOriginJson(); 
         UnityEngine.AI.NavMeshTriangulation navtri = UnityEngine.AI.NavMesh.CalculateTriangulation();
         //{
@@ -220,8 +235,12 @@ public static class NavMeshExporter
         //}
         Dictionary<int, int> indexmap = new Dictionary<int, int>();
         List<Vector3> repos = new List<Vector3>();
+        progress += 0.1f;
+        float mergeSameVertexSumPro = 0.1f;
         for (int i = 0; i < navtri.vertices.Length; i++)
         {
+            detailPro = (progress+mergeSameVertexSumPro*(i+1)/navtri.vertices.Length);
+            EditorUtility.DisplayProgressBar(ProgressBarName, "合并相同顶点("+(i+1)+"/"+navtri.vertices.Length+")", detailPro);
             int ito = -1;
             for (int j = 0; j < repos.Count; j++)
             {
@@ -241,6 +260,8 @@ public static class NavMeshExporter
                 indexmap[i] = ito;
             }
         }
+        progress = detailPro;
+        detailPro = 0.0f;
         // for(int i=0; i<navtri.areas.Length; i++)
         //     Debug.Log("area : "+navtri.areas[i].ToString());
         //关系是 index 公用的三角形表示他们共同组成多边形
@@ -249,8 +270,11 @@ public static class NavMeshExporter
         // List<int[]> polys = new List<int[]>();
         List<List<int>> polys = new List<List<int>>();
         MaxVertexPerPoly = 6;
+        float makePolySumPro = 0.1f;
         for (int i = 0; i < navtri.indices.Length / 3; i++)
         {
+            detailPro = progress+makePolySumPro*i/navtri.indices.Length/3;
+            EditorUtility.DisplayProgressBar(ProgressBarName, "合并邻近三角形("+i+"/"+(navtri.indices.Length/3)+")", detailPro);
             int i0 = navtri.indices[i * 3 + 0];
             int i1 = navtri.indices[i * 3 + 1];
             int i2 = navtri.indices[i * 3 + 2];
@@ -282,7 +306,8 @@ public static class NavMeshExporter
         {
             AddPolyByVertex(polylast, ref polys, style == "json");
         }
-
+        progress = detailPro;
+        detailPro = 0.0f;
         string outnav = "";
         if (style == "json")
         {
@@ -297,11 +322,14 @@ public static class NavMeshExporter
                     polys[i].Add(NullIndex);
             }
             List<List<int> > neighbor = new List<List<int>>();
-            GenNeighbor(polys, ref neighbor);
+            GenNeighbor(polys, ref neighbor, progress);
+            progress+=0.1f;
             MergePolyAndNeighbor(ref polys, neighbor);
             float[] boundsMin = new float[3];
             float[] boundsMax = new float[3];
+            EditorUtility.DisplayProgressBar(ProgressBarName, "反转所有顶点X轴", progress+=0.1f);
             RevertX(ref repos);
+            EditorUtility.DisplayProgressBar(ProgressBarName, "计算包围盒", progress+=0.1f);
             GetBounds(repos, ref boundsMin, ref boundsMax);
             // Debug.Log("max bounds :" + boundsMax[1].ToString()+" boundsMin:"+boundsMin[1].ToString());
             for (int i = 0; i < repos.Count; i++)
@@ -324,8 +352,11 @@ public static class NavMeshExporter
             outnav += "\"bmax\":["+boundsMax[0]+", "+boundsMax[1]+", "+boundsMax[2]+"],\n";
             outnav += "\"v\":[\n";
             // List<List<uint>> vertexes = new List<List<uint>>();
+            detailPro = 0.0f;
             for (int i = 0; i < repos.Count; i++)
             {
+                detailPro = progress+0.1f*(i+1)/repos.Count;
+                EditorUtility.DisplayProgressBar(ProgressBarName, "生成json顶点数据("+(i+1)+"/"+repos.Count+")", detailPro);
                 // List<uint> vertex = new List<uint>();
                 // vertex.Add((uint)repos[i].x);
                 // vertex.Add((uint)repos[i].y);
@@ -336,8 +367,12 @@ public static class NavMeshExporter
                 outnav += "[" + (repos[i].x) + "," + repos[i].y + "," + repos[i].z + "]";
             }
             outnav += "\n],\n\"p\":[\n";
+            progress = detailPro;
+            detailPro = 0.0f;
             for (int i = 0; i < polys.Count; i++)
             {
+                detailPro = progress+0.1f*(i+1)/polys.Count;
+                EditorUtility.DisplayProgressBar(ProgressBarName, "生成json多边形数据("+(i+1)+"/"+polys.Count+")", detailPro);
                 // string outs = indexmap[polys[i][0]].ToString();
                 string outs = polys[i][0].ToString();
                 for (int j = 1; j < MaxVertexPerPoly; j++)
@@ -356,19 +391,26 @@ public static class NavMeshExporter
                 outnav += "[" + outs + "]";
             }
             outnav += "\n]}";
-            Debug.Log("outnav : "+outnav);
+            // Debug.Log("outnav : "+outnav);
         }
         else if (style == "obj")
         {
+            detailPro = 0.0f;
             outnav = "";
             for (int i = 0; i < repos.Count; i++)
             {//unity 对obj 做了 x轴 -1
+                detailPro = progress+0.4f*(i+1)/polys.Count;
+                EditorUtility.DisplayProgressBar(ProgressBarName, "生成json顶点数据("+(i+1)+"/"+repos.Count+")", detailPro);
                 outnav += "v " + (repos[i].x * -1) + " " + repos[i].y + " " + repos[i].z + "\r\n";
                 // outnav += "v " + (repos[i].x) + " " + repos[i].y + " " + repos[i].z + "\r\n";
             }
             outnav += "\r\n";
+            progress = detailPro;
+            detailPro = 0.0f;
             for (int i = 0; i < polys.Count; i++)
             {
+                detailPro = progress+0.5f*(i+1)/polys.Count;
+                EditorUtility.DisplayProgressBar(ProgressBarName, "生成json多边形数据("+(i+1)+"/"+polys.Count+")", detailPro);
                 outnav += "f";
                 //逆向
                 for (int j = polys[i].Count - 1; j >= 0; j--)
